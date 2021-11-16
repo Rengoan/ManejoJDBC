@@ -14,5 +14,9 @@ public class TestManejoPersonas {
         personas.forEach(persona ->{
             System.out.println("Persona = " + persona);
         });
+        
+        
+        
+       
     }
 }
