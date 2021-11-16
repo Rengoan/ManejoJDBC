@@ -11,7 +11,7 @@ public class PersonaDao {
             + "(idpersona, nombre, apellido, email, telefono) VALUES"
             + "(?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE  persona SET"
-            + "(nombre = ?, apellido = ?, email = ?, telefono= ?)"
+            + "nombre = ?, apellido = ?, email = ?, telefono= ? "
             +"WHERE idpersona = ?";
 
     public List<Persona> seleccionar() throws SQLException {
@@ -74,7 +74,7 @@ public class PersonaDao {
         return registros;
     }
     
-    public int actualizacion(Persona persona) throws SQLException {
+    public int actualizar(Persona persona) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -83,11 +83,12 @@ public class PersonaDao {
             conn = getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
 
-            stmt.setInt(1, persona.getIdPersona()); //1 simboliza el interrogante, la posicion. Si es autoincrementable no hace falta ponerlo.
-            stmt.setString(2, persona.getNombre());
-            stmt.setString(3, persona.getApellido());
-            stmt.setString(4, persona.getEmail());
-            stmt.setString(5, persona.getTelefono());
+            //1 simboliza el interrogante, la posicion. Si es autoincrementable no hace falta ponerlo.
+            stmt.setString(1, persona.getNombre());
+            stmt.setString(2, persona.getApellido());
+            stmt.setString(3, persona.getEmail());
+            stmt.setString(4, persona.getTelefono());
+            stmt.setInt(5, persona.getIdPersona());
 
             registros = stmt.executeUpdate(); //para ejecutar la sentencia que modifica la base de datos
 
