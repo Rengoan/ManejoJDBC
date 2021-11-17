@@ -1,6 +1,6 @@
 package dominio;
 
-public class Persona {
+public class Persona { // Se hace una entidad por cada tabla
     private int idPersona;
     private String nombre;
     private String apellido;

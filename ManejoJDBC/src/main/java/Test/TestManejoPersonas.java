@@ -10,6 +10,7 @@ public class TestManejoPersonas {
         PersonaDao personaDao = new PersonaDao();
         int registros = personaDao.actualizar(new Persona(2, "Marta", "Sanchez",
                 "msanches@gmail.com", "698123453"));
+        int registrosBorrar = personaDao.borrar(new Persona(3, "Pedro", "Garcia", "pg@gmail.com", "6443222079"));
                 
                 
         

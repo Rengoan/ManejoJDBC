@@ -11,7 +11,10 @@ public class PersonaDao {
             + "(idpersona, nombre, apellido, email, telefono) VALUES"
             + "(?, ?, ?, ?, ?)";
     private static final String SQL_UPDATE = "UPDATE  persona SET"
-            + "nombre = ?, apellido = ?, email = ?, telefono= ? "
+            +" nombre = ?, apellido = ?, email = ?, telefono= ?"
+            +" WHERE idpersona = ?";
+    
+    private static final String SQL_DELETE = "DELETE  FROM persona "
             +"WHERE idpersona = ?";
 
     public List<Persona> seleccionar() throws SQLException {
@@ -89,6 +92,29 @@ public class PersonaDao {
             stmt.setString(3, persona.getEmail());
             stmt.setString(4, persona.getTelefono());
             stmt.setInt(5, persona.getIdPersona());
+
+            registros = stmt.executeUpdate(); //para ejecutar la sentencia que modifica la base de datos
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            close(stmt);
+            close(conn);
+        }
+        return registros;
+    }
+    
+    public int borrar(Persona persona) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+
+        try {
+            conn = getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE);
+
+            //1 simboliza el interrogante, la posicion. Si es autoincrementable no hace falta ponerlo.
+            stmt.setInt(1, persona.getIdPersona());
 
             registros = stmt.executeUpdate(); //para ejecutar la sentencia que modifica la base de datos
 
