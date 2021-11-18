@@ -1,6 +1,6 @@
 package dominio;
 
-public class Persona { // Se hace una entidad por cada tabla
+public class PersonaDTO { // Se hace una entidad por cada tabla
     private int idPersona;
     private String nombre;
     private String apellido;
@@ -8,17 +8,17 @@ public class Persona { // Se hace una entidad por cada tabla
     private String telefono;
 
     //Constructores
-    public Persona() {
+    public PersonaDTO() {
     }
 
-    public Persona(String nombre, String apellido, String email, String telefono) {
+    public PersonaDTO(String nombre, String apellido, String email, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
         this.telefono = telefono;
     }
 
-    public Persona(int idPersona, String nombre, String apellido, String email, String telefono) {
+    public PersonaDTO(int idPersona, String nombre, String apellido, String email, String telefono) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellido = apellido;

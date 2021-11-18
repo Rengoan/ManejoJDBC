@@ -1,11 +1,11 @@
 package datos;
 
-import dominio.Persona;
+import dominio.PersonaDTO;
 import static datos.Conexion.*;
 import java.sql.*;
 import java.util.*;
 
-public class PersonaDao {
+public class PersonaDAO {
 
     private static final String SQL_SELECT = "SELECT * FROM persona";
     private static final String SQL_INSERT = "INSERT INTO persona"
@@ -22,23 +22,23 @@ public class PersonaDao {
     
     //Constructor
 
-    public PersonaDao() {
+    public PersonaDAO() {
     }
 
-    public PersonaDao(Connection conexionTransaccional) {
+    public PersonaDAO(Connection conexionTransaccional) {
         this.conexionTransaccional = conexionTransaccional;
     }
     
     
 
-    public List<Persona> seleccionar() throws SQLException {
+    public List<PersonaDTO> seleccionar() throws SQLException {
 
         //1. Creamos nuestros objetos a null
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
 
-        List<Persona> personas = new ArrayList<>();
+        List<PersonaDTO> personas = new ArrayList<>();
 
         try {
             conn = this.conexionTransaccional !=null? this.conexionTransaccional : getConnection();
@@ -51,7 +51,7 @@ public class PersonaDao {
                 String apellido = rs.getString("apellido");
                 String email = rs.getString("email");
                 String telefono = rs.getString("telefono");
-                personas.add(new Persona(idPersona, nombre, apellido, email, telefono));
+                personas.add(new PersonaDTO(idPersona, nombre, apellido, email, telefono));
 
             }
 
@@ -65,7 +65,7 @@ public class PersonaDao {
         return personas;
     }
 
-    public int insertar(Persona persona) throws SQLException {
+    public int insertar(PersonaDTO persona) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -92,7 +92,7 @@ public class PersonaDao {
         return registros;
     }
     
-    public int actualizar(Persona persona) throws SQLException {
+    public int actualizar(PersonaDTO persona) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;
@@ -120,7 +120,7 @@ public class PersonaDao {
         return registros;
     }
     
-    public int borrar(Persona persona) throws SQLException {
+    public int borrar(PersonaDTO persona) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int registros = 0;

@@ -1,6 +1,6 @@
 package Test;
 
-import datos.PersonaDao;
+import datos.PersonaDAO;
 import datos.Conexion;
 import dominio.*;
 import java.sql.*;
@@ -19,16 +19,16 @@ public class TestManejoPersonas {
                 conexion.setAutoCommit(false);
             }
 
-            PersonaDao personaDao = new PersonaDao(conexion);
+            PersonaDAO personaDao = new PersonaDAO(conexion);
             //1. Actualizamos
-            int registros = personaDao.actualizar(new Persona(2, "Marta", "Sanchez",
+            int registros = personaDao.actualizar(new PersonaDTO(2, "Marta", "Sanchez",
                     "martitasanches@gmail.com", "698123453"));
             //2. Insertamos
-            personaDao.insertar(new Persona(3,"Antonio", "Rivera", "arivera@gmail.com", "633718200"));
+            personaDao.insertar(new PersonaDTO(3,"Antonio", "Rivera", "arivera@gmail.com", "633718200"));
             //3. Borramos
-            //int registrosBorrar = personaDao.borrar(new Persona(3, "Pedro", "Garcia", "pg@gmail.com", "6443222079"));
+            //int registrosBorrar = personaDao.borrar(new PersonaDTO(3, "Pedro", "Garcia", "pg@gmail.com", "6443222079"));
             //4. Seleccionamos
-            List<Persona> personas = personaDao.seleccionar();
+            List<PersonaDTO> personas = personaDao.seleccionar();
 
             personas.forEach(persona -> {
                 System.out.println("Persona = " + persona);
