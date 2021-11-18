@@ -1,6 +1,6 @@
 package Test;
 
-import datos.PersonaDAO;
+import datos.PersonaDAOJDBC;
 import datos.Conexion;
 import dominio.*;
 import java.sql.*;
@@ -19,7 +19,7 @@ public class TestManejoPersonas {
                 conexion.setAutoCommit(false);
             }
 
-            PersonaDAO personaDao = new PersonaDAO(conexion);
+            PersonaDAOJDBC personaDao = new PersonaDAOJDBC(conexion);
             //1. Actualizamos
             int registros = personaDao.actualizar(new PersonaDTO(2, "Marta", "Sanchez",
                     "martitasanches@gmail.com", "698123453"));
