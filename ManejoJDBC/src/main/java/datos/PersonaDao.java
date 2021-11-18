@@ -1,5 +1,6 @@
-package dominio;
+package datos;
 
+import dominio.Persona;
 import static datos.Conexion.*;
 import java.sql.*;
 import java.util.*;
@@ -16,6 +17,19 @@ public class PersonaDao {
     
     private static final String SQL_DELETE = "DELETE  FROM persona "
             +"WHERE idpersona = ?";
+    
+    private Connection conexionTransaccional;
+    
+    //Constructor
+
+    public PersonaDao() {
+    }
+
+    public PersonaDao(Connection conexionTransaccional) {
+        this.conexionTransaccional = conexionTransaccional;
+    }
+    
+    
 
     public List<Persona> seleccionar() throws SQLException {
 
@@ -27,7 +41,7 @@ public class PersonaDao {
         List<Persona> personas = new ArrayList<>();
 
         try {
-            conn = getConnection();
+            conn = this.conexionTransaccional !=null? this.conexionTransaccional : getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery(); //Para ejecutar la sentencia que lee la base de datos.
 
@@ -41,12 +55,12 @@ public class PersonaDao {
 
             }
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
         } finally {
             close(rs);
             close(stmt);
-            close(conn);
+            if (this.conexionTransaccional == null){
+                close(conn);
+            }
         }
         return personas;
     }
@@ -57,7 +71,7 @@ public class PersonaDao {
         int registros = 0;
 
         try {
-            conn = getConnection();
+            conn = this.conexionTransaccional !=null? this.conexionTransaccional : getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
 
             stmt.setInt(1, persona.getIdPersona()); //1 simboliza el interrogante, la posicion. Si es autoincrementable no hace falta ponerlo.
@@ -68,11 +82,12 @@ public class PersonaDao {
 
             registros = stmt.executeUpdate(); //para ejecutar la sentencia que modifica la base de datos
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+        
         } finally {
             close(stmt);
-            close(conn);
+            if (this.conexionTransaccional == null){
+                close(conn);
+            }
         }
         return registros;
     }
@@ -83,7 +98,7 @@ public class PersonaDao {
         int registros = 0;
 
         try {
-            conn = getConnection();
+            conn = this.conexionTransaccional !=null? this.conexionTransaccional : getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
 
             //1 simboliza el interrogante, la posicion. Si es autoincrementable no hace falta ponerlo.
@@ -95,11 +110,12 @@ public class PersonaDao {
 
             registros = stmt.executeUpdate(); //para ejecutar la sentencia que modifica la base de datos
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+        
         } finally {
             close(stmt);
-            close(conn);
+            if (this.conexionTransaccional == null){
+                close(conn);
+            }
         }
         return registros;
     }
@@ -110,7 +126,7 @@ public class PersonaDao {
         int registros = 0;
 
         try {
-            conn = getConnection();
+            conn = this.conexionTransaccional !=null? this.conexionTransaccional : getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
 
             //1 simboliza el interrogante, la posicion. Si es autoincrementable no hace falta ponerlo.
@@ -118,11 +134,12 @@ public class PersonaDao {
 
             registros = stmt.executeUpdate(); //para ejecutar la sentencia que modifica la base de datos
 
-        } catch (SQLException ex) {
-            ex.printStackTrace(System.out);
+        
         } finally {
             close(stmt);
-            close(conn);
+            if (this.conexionTransaccional == null){
+                close(conn);
+            }
         }
         return registros;
     }
