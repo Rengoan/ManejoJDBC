@@ -6,6 +6,7 @@ import java.util.*;
 
 public interface PersonaDAO {
     
+    
     List<PersonaDTO> seleccionar() throws SQLException;
     
     int insertar(PersonaDTO persona)throws SQLException;
